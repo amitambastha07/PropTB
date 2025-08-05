@@ -11,7 +11,7 @@ import threading
 import schedule
 
 class FundedFridayTradingBot:
-    def __init__(self, account_balance: float = 10000, challenge_type: str = "ONE_STEP"):
+    def __init__(self, account_balance: float = 10000, challenge_type: str = "ONE_STEP", config=None):
         """
         FundedFriday Trading Bot for XAU/XAG pairs
         Designed for AWS EC2 Windows environment with MT5
@@ -24,10 +24,22 @@ class FundedFridayTradingBot:
         self.daily_high_equity = account_balance
         self.daily_start_balance = account_balance
         
+        # Load configuration
+        if config is None:
+            # Default config if none provided
+            from config import TradingConfig
+            config = TradingConfig()
+        
+        # Apply risk management settings from config
+        self.base_risk_per_trade = config.BASE_RISK_PER_TRADE
+        self.max_risk_per_trade = config.MAX_RISK_PER_TRADE
+        self.max_concurrent_trades = config.MAX_CONCURRENT_TRADES
+        self.max_trades_per_symbol = config.MAX_TRADES_PER_SYMBOL
+        
         # Primary trading symbols (as requested)
-        self.primary_symbols = ['XAUUSD', 'XAGUSD']
+        self.primary_symbols = config.PRIMARY_SYMBOLS
         # Backup symbols for diversification
-        self.backup_symbols = ['EURUSD', 'GBPUSD', 'USDJPY']
+        self.backup_symbols = config.BACKUP_SYMBOLS
         
         # Trading statistics
         self.total_trades = 0
@@ -37,12 +49,6 @@ class FundedFridayTradingBot:
         self.daily_profit = 0
         self.total_profit = 0
         self.consecutive_losses = 0
-        
-        # Risk management
-        self.base_risk_per_trade = 0.012  # 1.2% base risk
-        self.max_risk_per_trade = 0.02   # 2% maximum risk
-        self.max_concurrent_trades = 4
-        self.max_trades_per_symbol = 2
         
         # Set challenge-specific rules
         self._set_challenge_rules()

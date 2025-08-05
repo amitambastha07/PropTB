@@ -29,7 +29,8 @@ def main():
         
         bot = FundedFridayTradingBot(
             account_balance=config.ACCOUNT_BALANCE,
-            challenge_type=config.CHALLENGE_TYPE
+            challenge_type=config.CHALLENGE_TYPE,
+            config=config  # Pass the config object
         )
         
         # Create monitor

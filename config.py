@@ -10,14 +10,14 @@ class TradingConfig:
     MT5_SERVER: str = os.getenv('MT5_SERVER', '')
     
     # Account Settings
-    ACCOUNT_BALANCE: float = float(os.getenv('ACCOUNT_BALANCE', '10000'))
+    ACCOUNT_BALANCE: float = float(os.getenv('ACCOUNT_BALANCE', '5000'))
     CHALLENGE_TYPE: str = os.getenv('CHALLENGE_TYPE', 'ONE_STEP')  # ONE_STEP or TWO_STEP
     
     # Risk Management
-    BASE_RISK_PER_TRADE: float = 0.012  # 1.2%
-    MAX_RISK_PER_TRADE: float = 0.02    # 2%
-    MAX_CONCURRENT_TRADES: int = 4
-    MAX_TRADES_PER_SYMBOL: int = 2
+    BASE_RISK_PER_TRADE: float = 0.01  # 1.2%
+    MAX_RISK_PER_TRADE: float = 0.03    # 2%
+    MAX_CONCURRENT_TRADES: int = 5
+    MAX_TRADES_PER_SYMBOL: int = 3
     
     # Trading Settings
     PRIMARY_SYMBOLS: List[str] = None
