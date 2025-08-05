@@ -7,6 +7,9 @@ from bot_monitor import BotMonitor
 def main():
     # Load environment variables
     load_dotenv()
+    print("MT5_LOGIN:", os.getenv("MT5_LOGIN"))
+    print("MT5_PASSWORD:", os.getenv("MT5_PASSWORD"))
+    print("MT5_SERVER:", os.getenv("MT5_SERVER"))
     
     # Load configuration
     config = TradingConfig()
