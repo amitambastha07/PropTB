@@ -1,9 +1,13 @@
 import os
 from dataclasses import dataclass
 from typing import Dict, List
+from dotenv import load_dotenv
 
 @dataclass
 class TradingConfig:
+    # Load environment variables
+    load_dotenv()
+    
     # MT5 Connection Settings
     MT5_LOGIN: int = int(os.getenv('MT5_LOGIN', '0'))
     MT5_PASSWORD: str = os.getenv('MT5_PASSWORD', '')
